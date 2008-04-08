@@ -15,7 +15,7 @@ sub new {
 
 sub sticky {
     my($self, %args) = @_;
-    $args{param} = {};
+    $args{param} ||= {};
     $args{param}->{guid} = 'ON' unless $args{disable_guid};
 
     local $self->{sticky}->{use_xhtml} = exists $args{xhtml} ? $args{xhtml} : 1;
