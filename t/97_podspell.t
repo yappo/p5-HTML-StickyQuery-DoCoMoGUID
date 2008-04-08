@@ -1,5 +1,6 @@
 use Test::More;
 eval q{ use Test::Spelling };
+plan skip_all => "日本語があると死ぬ";
 plan skip_all => "Test::Spelling is not installed." if $@;
 add_stopwords(map { split /[\s\:\-]/ } <DATA>);
 $ENV{LANG} = 'C';

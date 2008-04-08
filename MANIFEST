@@ -26,3 +26,6 @@ t/02_form_get.t
 t/02_form_get_xhtml.t
 t/03_form_post.t
 t/04_mix.t
+t/05_param.t
+t/06_disable_guid.t
+t/06_disable_guid_param.t

@@ -75,7 +75,7 @@ sub start {
                     $original{$key} = $val;
                 }
             }
-            $u->query_form(%original, guid => 'ON');
+            $u->query_form( %original, (exists $self->{param}->{guid} ? (guid => $self->{param}->{guid}) : ()) );
         } else {
             $u->query_form(%{$self->{param}});
         }
@@ -125,9 +125,43 @@ HTML::StickyQuery::DoCoMoGUID - add guid query for DoCoMo imode
   my $guid = HTML::StickyQuery::DoCoMoGUID->new;
   print $guid->sticky( scalarref => \$html );
 
+add sessionid
+
+  my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+  print $guid->sticky(
+      scalarref => \$html,
+      param     => { sessionid => 'SID' },
+  );
+
+guid=ON を出さない
+
+  my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+  print $guid->sticky(
+      scalarref    => \$html,
+      param        => { sessionid => 'SID' },
+      disable_guid => 1,
+  );
+
+FORM タグの時の INPUT タグを XHTML じゃ無くする
+
+  my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+  print $guid->sticky(
+      scalarref    => \$html,
+      param        => { sessionid => 'SID' },
+      disable_guid => 1,
+      xhtml        => 0,
+  );
+
+
 =head1 DESCRIPTION
 
 主に HTML::StickyQuery を使って DoCoMo用の guid=ON をつけるフィルタリングをするよ。
+FORM タグがある場合には、 get method の時には input タグを追加して、 post method の時には action の中に guid=ON を追加します。
+
+sticky method への引数に param => { key => value } を追加すると HTML::StickyQuery へそのまま処理が引き継がれるよ。
+ただし、 FORM タグの場合は <input type="hidden" name="key" value="value" /> のような HTML が出力されます。
+
+どんな感じでフィルタリングされるかは t ディレクトリの中のテストコードを参考にしてくださいね。
 
 =head1 AUTHOR
 
@@ -135,7 +169,7 @@ Kazuhiro Osawa E<lt>ko@yappo.ne.jpE<gt>
 
 =head1 SEE ALSO
 
-L<HTML::StickyQuery>
+L<HTML::StickyQuery>, L<http://www.nttdocomo.co.jp/service/imode/make/content/ip/index.html#imodeid>
 
 =head1 REPOSITORY
 
