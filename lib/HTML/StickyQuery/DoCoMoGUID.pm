@@ -16,7 +16,7 @@ sub new {
 sub sticky {
     my($self, %args) = @_;
     $args{param} = {};
-    $args{param}->{guid} = 'ON';
+    $args{param}->{guid} = 'ON' unless $args{disable_guid};
 
     local $self->{sticky}->{use_xhtml} = exists $args{xhtml} ? $args{xhtml} : 1;
 
@@ -56,10 +56,7 @@ sub start {
         # get method
         unless (($attr->{method} || '') =~ /^post$/i) {
             $self->{output} .= $orig;
-            while (my($key, $value) = each %{ $self->{param} }) {
-                $self->{output} .= sprintf '<input type="hidden" name="%s" value="%s"%s>',
-                                       $key, $value, ($self->{use_xhtml} ? ' /' : '');
-            }
+            _sticky_input($self);
             return;
         }
 
@@ -78,14 +75,12 @@ sub start {
                     $original{$key} = $val;
                 }
             }
-            $u->query_form(%original, %{ $self->{param} });
+            $u->query_form(%original, guid => 'ON');
         } else {
             $u->query_form(%{$self->{param}});
         }
 
-
         $self->{output} .= "<$tagname";
-
         # save attr order.
         for my $key (@{ $attrseq }) {
             if ($key eq 'action'){
@@ -97,10 +92,21 @@ sub start {
             }
         }
         $self->{output} .= '>';
+        # add some params
+        _sticky_input($self, 1);
         return;
     }
 
     $self->{output} .= $orig;
+}
+
+sub _sticky_input {
+    my($self, $ignore_guid) = @_;
+    while (my($key, $value) = each %{ $self->{param} }) {
+        next if $ignore_guid && $key eq 'guid';
+        $self->{output} .= sprintf '<input type="hidden" name="%s" value="%s"%s>',
+                               $key, $value, ($self->{use_xhtml} ? ' /' : '');
+    }
 }
 
 1;
