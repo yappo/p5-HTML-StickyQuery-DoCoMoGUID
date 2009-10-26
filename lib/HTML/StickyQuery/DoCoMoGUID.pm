@@ -7,9 +7,9 @@ our $VERSION = '0.01';
 use HTML::StickyQuery;
 
 sub new {
-    my $class = shift;
+    my ($class, %args) = @_;
     bless {
-        sticky => HTML::StickyQuery->new( regexp => qr/./ ),
+        sticky => HTML::StickyQuery->new( regexp => qr/./, %args ),
     }, $class;
 }
 
