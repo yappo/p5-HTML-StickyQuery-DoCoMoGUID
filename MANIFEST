@@ -29,3 +29,4 @@ t/04_mix.t
 t/05_param.t
 t/06_disable_guid.t
 t/06_disable_guid_param.t
+t/07_abs.t
