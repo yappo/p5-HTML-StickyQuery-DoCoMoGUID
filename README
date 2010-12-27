@@ -1,27 +1,64 @@
-This is Perl module HTML::StickyQuery::DoCoMoGUID.
+NAME
+    HTML::StickyQuery::DoCoMoGUID - add guid query for DoCoMo imode
 
-INSTALLATION
+SYNOPSIS
+      use HTML::StickyQuery::DoCoMoGUID;
 
-HTML::StickyQuery::DoCoMoGUID installation is straightforward. If your CPAN shell is set up,
-you should just be able to do
+      my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+      print $guid->sticky( scalarref => \$html );
 
-    % cpan HTML::StickyQuery::DoCoMoGUID
+    add sessionid
 
-Download it, unpack it, then build it as per the usual:
+      my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+      print $guid->sticky(
+          scalarref => \$html,
+          param     => { sessionid => 'SID' },
+      );
 
-    % perl Makefile.PL
-    % make && make test
+    guid=ON を出さない
 
-Then install it:
+      my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+      print $guid->sticky(
+          scalarref    => \$html,
+          param        => { sessionid => 'SID' },
+          disable_guid => 1,
+      );
 
-    % make install
+    FORM タグの時の INPUT タグを XHTML じゃ無くする
 
-DOCUMENTATION
+      my $guid = HTML::StickyQuery::DoCoMoGUID->new;
+      print $guid->sticky(
+          scalarref    => \$html,
+          param        => { sessionid => 'SID' },
+          disable_guid => 1,
+          xhtml        => 0,
+      );
 
-HTML::StickyQuery::DoCoMoGUID documentation is available as in POD. So you can do:
+DESCRIPTION
+    主に HTML::StickyQuery を使って DoCoMo用の guid=ON をつけるフィルタリングをするよ。 FORM
+    タグがある場合には、 get method の時には input タグを追加して、 post method の時には action の中に
+    guid=ON を追加します。
 
-    % perldoc HTML::StickyQuery::DoCoMoGUID
+    sticky method への引数に param => { key => value } を追加すると HTML::StickyQuery
+    へそのまま処理が引き継がれるよ。 ただし、 FORM タグの場合は <input type="hidden" name="key"
+    value="value" /> のような HTML が出力されます。
 
-to read the documentation online with your favorite pager.
+    どんな感じでフィルタリングされるかは t ディレクトリの中のテストコードを参考にしてくださいね。
 
-Kazuhiro Osawa
+AUTHOR
+    Kazuhiro Osawa <ko@yappo.ne.jp>, Hideo Kimura
+
+SEE ALSO
+    HTML::StickyQuery,
+    <http://www.nttdocomo.co.jp/service/imode/make/content/ip/index.html#imo
+    deid>
+
+REPOSITORY
+      git clone git://github.com/yappo/p5-HTML-StickyQuery-DoCoMoGUID.git
+
+    patches and collaborators are welcome.
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

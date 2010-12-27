@@ -174,9 +174,8 @@ L<HTML::StickyQuery>, L<http://www.nttdocomo.co.jp/service/imode/make/content/ip
 
 =head1 REPOSITORY
 
-  svn co http://svn.coderepos.org/share/lang/perl/HTML-StickyQuery-DoCoMoGUID/trunk HTML-StickyQuery-DoCoMoGUID
+  git clone git://github.com/yappo/p5-HTML-StickyQuery-DoCoMoGUID.git
 
-HTML::StickyQuery::DoCoMoGUID is Subversion repository is hosted at L<http://coderepos.org/share/>.
 patches and collaborators are welcome.
 
 =head1 LICENSE
