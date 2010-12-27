@@ -46,7 +46,7 @@ DESCRIPTION
     どんな感じでフィルタリングされるかは t ディレクトリの中のテストコードを参考にしてくださいね。
 
 AUTHOR
-    Kazuhiro Osawa <ko@yappo.ne.jp>, Hideo Kimura
+    Kazuhiro Osawa <yappo {at} shibuya [dot] pl>, Hideo Kimura
 
 SEE ALSO
     HTML::StickyQuery,

@@ -165,7 +165,7 @@ sticky method への引数に param => { key => value } を追加すると HTML:
 
 =head1 AUTHOR
 
-Kazuhiro Osawa E<lt>ko@yappo.ne.jpE<gt>,
+Kazuhiro Osawa E<lt>yappo {at} shibuya [dot] plE<gt>,
 Hideo Kimura
 
 =head1 SEE ALSO
